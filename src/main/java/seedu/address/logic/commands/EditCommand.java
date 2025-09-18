@@ -133,13 +133,16 @@ public class EditCommand extends Command {
      * Stores the details to edit the person with. Each non-empty field value will replace the
      * corresponding field value of the person.
      */
+    /**
+     * Descriptor for editing a person. Each non-empty field value will replace the corresponding field value of the person.
+     */
     public static class EditPersonDescriptor {
-    private Name name;
-    private Phone phone;
-    private Email email;
-    private Address address;
-    private seedu.address.model.person.Remark remark;
-    private Set<Tag> tags;
+        private Name name;
+        private Phone phone;
+        private Email email;
+        private Address address;
+        private seedu.address.model.person.Remark remark;
+        private Set<Tag> tags;
 
         public EditPersonDescriptor() {}
 
@@ -220,21 +223,20 @@ public class EditCommand extends Command {
         }
 
         @Override
+        @Override
         public boolean equals(Object other) {
             if (other == this) {
                 return true;
             }
-
-            // instanceof handles nulls
             if (!(other instanceof EditPersonDescriptor)) {
                 return false;
             }
-
             EditPersonDescriptor otherEditPersonDescriptor = (EditPersonDescriptor) other;
             return Objects.equals(name, otherEditPersonDescriptor.name)
                     && Objects.equals(phone, otherEditPersonDescriptor.phone)
                     && Objects.equals(email, otherEditPersonDescriptor.email)
                     && Objects.equals(address, otherEditPersonDescriptor.address)
+                    && Objects.equals(remark, otherEditPersonDescriptor.remark)
                     && Objects.equals(tags, otherEditPersonDescriptor.tags);
         }
 

@@ -11,6 +11,35 @@ mainClassName = 'seedu.address.Main'
 sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
 
+// Ensure source encoding is UTF-8 and proactively strip BOM from Java sources before compilation
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+
+tasks.named('compileJava') {
+    doFirst {
+        // Remove UTF-8 BOM if present at start of any .java file
+        fileTree('src/main/java').matching { include '**/*.java' }.each { File f ->
+            String content = f.getText('UTF-8')
+            if (content.startsWith('\uFEFF')) {
+                f.write(content.substring(1), 'UTF-8')
+                println "Stripped BOM from: ${f}"
+            }
+        }
+    }
+}
+
+tasks.named('compileTestJava') {
+    doFirst {
+        // Remove UTF-8 BOM if present at start of any test .java file
+        fileTree('src/test/java').matching { include '**/*.java' }.each { File f ->
+            String content = f.getText('UTF-8')
+            if (content.startsWith('\uFEFF')) {
+                f.write(content.substring(1), 'UTF-8')
+                println "Stripped BOM from test: ${f}"
+            }
+        }
+    }
+}
+
 repositories {
     mavenCentral()
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }

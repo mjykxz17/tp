@@ -99,9 +99,10 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
+        seedu.address.model.person.Remark updatedRemark = editPersonDescriptor.getRemark().orElse(personToEdit.getRemark());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRemark, updatedTags);
     }
 
     @Override
@@ -133,11 +134,12 @@ public class EditCommand extends Command {
      * corresponding field value of the person.
      */
     public static class EditPersonDescriptor {
-        private Name name;
-        private Phone phone;
-        private Email email;
-        private Address address;
-        private Set<Tag> tags;
+    private Name name;
+    private Phone phone;
+    private Email email;
+    private Address address;
+    private seedu.address.model.person.Remark remark;
+    private Set<Tag> tags;
 
         public EditPersonDescriptor() {}
 
@@ -150,6 +152,7 @@ public class EditCommand extends Command {
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
+            setRemark(toCopy.remark);
             setTags(toCopy.tags);
         }
 
@@ -157,7 +160,14 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, remark, tags);
+        }
+        public void setRemark(seedu.address.model.person.Remark remark) {
+            this.remark = remark;
+        }
+
+        public Optional<seedu.address.model.person.Remark> getRemark() {
+            return Optional.ofNullable(remark);
         }
 
         public void setName(Name name) {

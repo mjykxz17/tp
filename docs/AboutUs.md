@@ -11,51 +11,40 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
+### Casey Low
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/kin-chong.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[homepage](https://kin-chong.github.io/casey-website/)]
+[[github](https://github.com/kin-chong)]
+[[portfolio](team/kin-chong.md)]
 
 * Role: Project Advisor
 
-### Jane Doe
+### Aiden Ma JiaYi
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/mjykxz17.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/mjykxz17)]
+[[portfolio](team/Aiden.md)]
 
 * Role: Team Lead
 * Responsibilities: UI
 
-### Johnny Doe
+### Ng Meng Jie
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/pokedot.png" width="200px">
 
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[github](http://github.com/pokedot)] [[portfolio](team/pokedot.md)]
 
 * Role: Developer
 * Responsibilities: Data
 
-### Jean Doe
+### Ho Pei Ling
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/plingplingshiny.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/plingplingshiny)]
 
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
-
-### James Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Developer
-* Responsibilities: UI

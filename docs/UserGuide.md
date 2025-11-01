@@ -25,7 +25,7 @@ PropertyPal is a **desktop application** that helps **real estate agents** manag
 4. Copy the file to the folder you created in step 3 to use as the _home folder_ for your PropertyPal.
 
 5. Open a command terminal, navigate into the folder you put the jar file in, and use the `java -jar PropertyPal.jar` command to run the application.<br>
-   A GUI should appear in a few seconds. Refer to [UI](#ui) below for more details. Note that the app contains some sample data by default.<br>**Alternatively**, you may also double-click the jar file to run the application (depending on your OS settings).   
+   A GUI should appear in a few seconds. Refer to [UI](#ui) below for more details. Note that the app contains some sample data by default.<br>**Alternatively**, you may also double-click the jar file to run the application (depending on your OS settings).
 
 6. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
@@ -46,17 +46,34 @@ PropertyPal is a **desktop application** that helps **real estate agents** manag
 
 ## UI
 
-![UI components](images/uiComponent.png)
+![UI components](images/uiComponent.png)<br>
 The application has a Graphical User Interface (GUI) with the following components:
 1. Contact List: Displays the list of persons stored in PropertyPal. Each entry shows the person's name, phone number, email, address, property type, price, and intention.
 2. Result Display: Shows the outcome of user commands, such as success or error messages.
 3. Command Box: The text input field where users can type commands to interact with PropertyPal.
 
 ### Contact List
-![contact list](images/contactList.png)
+![contact list](images/contactList.png)<br>
 The Contact List displays all persons stored in PropertyPal. Each entry shows the person's name, phone number, email, address, property type, price, and intention.
-Each field has its own column. <br> Users can adjust column widths by dragging the edges of the column headers. <br> Users can also reorder columns by dragging and dropping the column headers. <br>
-A row will be highlighted when clicked, making it easier for users to focus on a particular contact.
+Each field has its own column. <br> Users can adjust column widths by dragging the edges of the column headers. <br> Users can also reorder columns by dragging and dropping the column headers to their desired positions. <br>
+Clicking a row highlights it, making it easier for users to focus on a particular contact.
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Field Validation Rules
+
+All fields in PropertyPal are **case-insensitive** — searches and comparisons ignore case, but entries are displayed exactly as entered by the user.
+
+| **Field**                 | **Validation Rules**                                                                                                                                                                                                                                                                                                      | **Valid Examples**                                                             | **Invalid Examples**                                            |
+| ------------------------- |---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------|-----------------------------------------------------------------|
+| **Intention (`i/`)**      | Must be either `sell` or `rent`.                                                                                                                                                                                                                                                                                          | `i/sell`, `i/rent`, `i/Rent`                                                   | `i/selling`, `i/lease`                                          |
+| **Name (`n/`)**           | Must start with a letter and contain only letters, numbers, accents, spaces, periods, apostrophes, or hyphens.                                                                                                                                                                                                            | `n/John Doe`, `n/Anne-Marie Tan`, `n/O’Connor`, `n/José Álvarez`               | `n/@John`, `n/  `, `n/#Peter`                                   |
+| **Phone (`p/`)**          | May begin with a `+`, followed by digits, spaces, or dashes. Must contain at least **7 digits total**.                                                                                                                                                                                                                    | `p/98765432`, `p/+65 9123 4567`, `p/123-4567`                                  | `p/12-34`, `p/abc123`, `p/++6598765432`                         |
+| **Email (`e/`)**          | Must follow the format `<local-part>@<domain>`. The local part may contain alphanumeric characters and `.`, `_`, `+`, or `-` (not starting/ending with them). The domain must consist of labels separated by `.` that each start and end with an alphanumeric character, with the final label at least 2 characters long. | `e/johndoe@example.com`, `e/casey_low@yahoo.com.sg`, `e/user123@gmail.com`     | `e/@gmail.com`, `e/user@@mail.com`, `e/john@`, `e/john@.com`    |
+| **Address (`a/`)**        | Cannot be blank or start with a whitespace. May contain any characters after the first non-space.                                                                                                                                                                                                                         | `a/Blk 425, Clementi Ave 1 #03-45 120425`, `a/12 Bishan St 22`                 | `a/ ` (blank), `a/   45 Clementi` *(starts with space)*         |
+| **Property Type (`pt/`)** | Up to 100 characters, cannot be blank or start with a space.                                                                                                                                                                                                                                                              | `pt/HDB 3 room flat`, `pt/Condominium`, `pt/Landed house`                      | `pt/ `, `pt/`                                                   |
+| **Price (`pr/`)**         | Must be a positive number ≤ 13 digits, optionally with commas and up to **2 decimal places**. Cannot be blank or contain symbols other than commas or one decimal point.                                                                                                                                                  | `pr/450000`, `pr/1,200,000`, `pr/4700.50`                                      | `pr/-5000`, `pr/$2000`, `pr/1,000.000`, `pr/`, `pr/100,00,0`    |
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -88,7 +105,7 @@ A row will be highlighted when clicked, making it easier for users to focus on a
   </box>
 
 * The `INTENTION` parameter in the `add` and `find` commands refers to the client's intention regarding property transactions: selling or renting. This helps in categorizing clients based on their property-related goals.
-  * **Accepted values:** `sell` or `rent` (case-insensitive). Inputs are accepted in any case and will be normalized to lowercase internally (e.g., `Sell`, `SELL`, and `sell` are all valid and stored as `sell`). Other values, abbreviations, or synonyms are not accepted.
+    * **Accepted values:** `sell` or `rent` (case-insensitive). Inputs are accepted in any case and will be normalized to lowercase internally (e.g., `Sell`, `SELL`, and `sell` are all valid and stored as `sell`). Other values, abbreviations, or synonyms are not accepted.
 
 ### Viewing help : `help`
 
@@ -104,15 +121,15 @@ Format: `help`
 Adds a person to PropertyPal.
 
 * A warning will be displayed if there already exists an entry with the same name and/or address in PropertyPal. However, it will still be accepted if at least 1 field is different from the existing entry.
-* An entry with identical values for every field is considered a duplicate and will not be accepted by PropertyPal.
+* An input that is fully identical to an already existing entry is considered a duplicate and will not be accepted by PropertyPal.
 * PropertyType and Price prefix values have a maximum character/digit limit of 100 and 13 respectively.
 
 Format: `add i/INTENTION n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pt/PROPERTY_TYPE pr/PRICE​`
 
 Examples:
 * `add i/rent n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 pt/HDB 3 room flat pr/4700`
-* `add i/sell n/Betsy Crowe e/betsycrowe@example.com a/Caldecott Road #12-34 pt/Condominium pr/120000.50 p/1234567`
-* ![adding a person](images/addingPerson.gif)
+* `add i/sell n/Betsy Crowe e/betsycrowe@example.com a/Caldecott Road #12-34, Singapore 756467 pt/Condominium pr/1200000.50 p/+65 81234567`
+![adding a person](images/addingPerson.png)
 
 ### Listing all persons : `list`
 
@@ -133,9 +150,9 @@ Format: `edit INDEX [i/INTENTION] [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS
 * Existing values will be updated to the input values.
 
 Examples:
-*  `edit 2 p/99099090 e/aaron@gmail.com` Edits the phone number and email address of the 2nd person to be `99099090` and `aaron@gmail.com` respectively. 
-   * A prompt showing the edited contact with the new information will be displayed. (e.g. `Edited Person: Aaron Tan; Phone: 99099090; Email: aaron@gmail.com; Address: 12 Bishan Street 22 #04-118; Property Type: condo; Price: 1450000`)
-![result for 'edit 2 p/99099090 e/aaron@gmail.com'](images/editresult.png)
+*  `edit 2 p/99099090 e/aaron@gmail.com` Edits the phone number and email address of the 2nd person to be `99099090` and `aaron@gmail.com` respectively.
+    * A prompt showing the edited contact with the new information will be displayed. (e.g. `Edited Person: Aaron Tan; Phone: 99099090; Email: aaron@gmail.com; Address: 12 Bishan Street 22 #04-118; Property Type: condo; Price: 1450000`)
+      ![result for 'edit 2 p/99099090 e/aaron@gmail.com'](images/editresult.png)
 
 ### Locating persons by prefix: `find`
 
@@ -152,10 +169,10 @@ Format: `find [i/INTENTION]…​ [n/NAME]…​ [p/PHONE_NUMBER]…​ [e/EMAIL
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 * Persons matching **at least one given keyword** will be returned. Each keyword **must** be separated by a space.
   e.g. `find n/Alice Casey` will return `Alice Tan`, `Casey Low` as results in the contact list.
-<br><br>
+  <br><br>
 * Finding by Price:
-  * finding with an exact value (e.g. `pr/2000`) will return contacts who match that exact value.
-  * finding with a range of values (e.g. `pr/2000-3000`) will return contacts who fall within the range of values specified (inclusive).
+    * finding with an exact value (e.g. `pr/2000`) will return contacts who match that exact value.
+    * finding with a range of values (e.g. `pr/2000-3000`) will return contacts who fall within the range of values specified (inclusive).
 
 Examples:
 * `find n/Alex` — finds persons whose name contains “alex”.
@@ -182,7 +199,7 @@ Format: `delete INDEX` or `delete n/NAME [n/NAME]…`
     + When you provide a `NAME` to delete (e.g., `delete n/John Doe`), PropertyPal will now match and delete all persons whose full name exactly matches `John Doe` (case-insensitive matching is used internally). If the name matches multiple entries, the application will display a confirmation warning listing all matched entries and append a note such as:
         +  `Note: Multiple entries found for 'John Doe' — all matching entries will be deleted.`
         +  You can then type `yes` to confirm or `no` to abort.
-           ![deleting multiple names](images/deleteMultipleNames.gif)
+           ![deleting multiple names](images/deleteMultipleNames.png)
 
 Examples:
 * `list` followed by `delete 2` deletes the 2nd person in PropertyPal.

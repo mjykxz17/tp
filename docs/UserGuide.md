@@ -15,20 +15,19 @@ PropertyPal is a **desktop application** that helps **real estate agents** manag
 
 ## Quick start
 
-1. Ensure you have Java `17` or above installed in your Computer.<br>
+1. Ensure you have Java `17` or above installed in your Computer.<br> Java 17 can be downloaded from [here](https://www.oracle.com/java/technologies/downloads/#java17). Make sure that you choose the correct Operating System.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
 2. Download the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103-F10-2/tp/releases).
 
-3. Copy the file to the folder you want to use as the _home folder_ for your PropertyPal.
+3. Create a new empty folder at a location of your choice in your Computer.
 
-4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar PropertyPal.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note that the app contains some sample data by default.<br>
- * Column widths are adjustable (to display truncated values)
-   Note that you may click and drag the columns around to reorder them.<br>
-   ![Ui](images/Ui.png)
+4. Copy the file to the folder you created in step 3 to use as the _home folder_ for your PropertyPal.
 
-5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+5. Open a command terminal, navigate into the folder you put the jar file in, and use the `java -jar PropertyPal.jar` command to run the application.<br>
+   A GUI should appear in a few seconds. Refer to [UI](#ui) below for more details. Note that the app contains some sample data by default.<br>**Alternatively**, you may also double-click the jar file to run the application (depending on your OS settings).   
+
+6. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
     * `list` : Lists all contacts.
@@ -41,7 +40,23 @@ PropertyPal is a **desktop application** that helps **real estate agents** manag
 
     * `exit` : Exits the app.
 
-6. Refer to the [Features](#features) below for details of each command.
+7. Refer to the [Features](#features) below for details of each command.
+
+--------------------------------------------------------------------------------------------------------------------
+
+## UI
+
+![UI components](images/uiComponent.png)
+The application has a Graphical User Interface (GUI) with the following components:
+1. Contact List: Displays the list of persons stored in PropertyPal. Each entry shows the person's name, phone number, email, address, property type, price, and intention.
+2. Result Display: Shows the outcome of user commands, such as success or error messages.
+3. Command Box: The text input field where users can type commands to interact with PropertyPal.
+
+### Contact List
+![contact list](images/contactList.png)
+The Contact List displays all persons stored in PropertyPal. Each entry shows the person's name, phone number, email, address, property type, price, and intention.
+Each field has its own column. <br> Users can adjust column widths by dragging the edges of the column headers. <br> Users can also reorder columns by dragging and dropping the column headers. <br>
+A row will be highlighted when clicked, making it easier for users to focus on a particular contact.
 
 --------------------------------------------------------------------------------------------------------------------
 

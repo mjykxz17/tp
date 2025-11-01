@@ -183,7 +183,6 @@ Format: `find [i/INTENTION]…​ [n/NAME]…​ [p/PHONE_NUMBER]…​ [e/EMAIL
 
 Examples:
 * `find n/Alex` — finds persons whose name contains “alex”.
-* `find p/9123` — finds persons whose phone number contains “9123”.
 * `find n/John p/9123` — finds persons whose name, phone match any of the given keywords.<br>
   ![result for 'find n/John p/9123'](images/findJohn9123Result.png)
 

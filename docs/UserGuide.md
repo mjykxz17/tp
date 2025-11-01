@@ -1,7 +1,7 @@
 ---
-  layout: default.md
-    title: "User Guide"
-    pageNav: 3
+layout: default.md
+title: "User Guide"
+pageNav: 3
 ---
 
 # 🏠 PropertyPal User Guide
@@ -117,17 +117,18 @@ Format: `edit INDEX [i/INTENTION] [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS
 * Existing values will be updated to the input values.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+*  `edit 2 p/99099090 e/aaron@gmail.com` Edits the phone number and email address of the 2nd person to be `99099090` and `aaron@gmail.com` respectively. 
+   * A prompt showing the edited contact with the new information will be displayed. (e.g. `Edited Person: Aaron Tan; Phone: 99099090; Email: aaron@gmail.com; Address: 12 Bishan Street 22 #04-118; Property Type: condo; Price: 1450000`)
+![result for 'edit 2 p/99099090 e/aaron@gmail.com'](images/editresult.png)
 
 ### Locating persons by prefix: `find`
 
 Finds persons whose name, phone, email, address, intention, property type, or price contain any of the given keywords.
 Apart from the price field, the search is case-insensitive and uses substring matching (e.g. `ali` matches `Alice`).
 
-Format: `find [i/INTENTION] [n/NAME]…​ [p/PHONE_NUMBER]…​ [e/EMAIL]…​ [a/ADDRESS]…​ [pt/PROPERTY_TYPE] [pr/PRICE]`
+Format: `find [i/INTENTION]…​ [n/NAME]…​ [p/PHONE_NUMBER]…​ [e/EMAIL]…​ [a/ADDRESS]…​ [pt/PROPERTY_TYPE]…​ [pr/PRICE]…​`
 
 * At least one prefix must be provided.
-* You may include multiple prefixes in the same command — results are combined using OR semantics (a person matches if any field matches).
 * You may include multiple prefixes in the same command — results are combined using OR semantics (a person matches if any field matches).
 * Keywords are case-insensitive and may contain multiple words separated by spaces.
 * **Price field matches the exact value.**  e.g. `find pr/36` will not list a property with price 3600
@@ -157,7 +158,7 @@ Format: `delete INDEX` or `delete n/NAME [n/NAME]… [yes]`
 
 * Deletes a single person at the specified `INDEX`, OR one or more persons by exact `NAME`(s). Do not mix index and names in the same command.
 * The index refers to the index number shown in the displayed person list. The index must be a positive integer: 1, 2, 3, …
-* For deletion by name, each `NAME` must match a contact’s full name exactly (case-sensitive). If multiple contacts share the same exact name, only the first match will be deleted; use index to disambiguate.
+* For deletion by name, each `NAME` must match a contact’s full name exactly (case-insensitive). If multiple contacts share the same exact name, only the first match will be deleted; use index to disambiguate.
 * When deleting multiple persons by name, PropertyPal will first show a confirmation prompt listing the persons to be deleted; add `yes` to proceed.
 * Deleting multiple names is all‑or‑nothing: if any given name is not found, nobody is deleted and an error listing the missing names is shown.
 
@@ -199,10 +200,6 @@ PropertyPal data are saved automatically as a JSON file `[JAR file location]/dat
 If your changes to the data file makes its format invalid, PropertyPal will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause the PropertyPal to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
-
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 

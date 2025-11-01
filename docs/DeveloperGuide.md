@@ -639,7 +639,7 @@ testers are expected to do more *exploratory* testing.
     * Note: Equality matching is case-insensitive — differing letter case does not avoid duplication.<br>
       **Expected:** Error message — This person already exists in PropertyPal.
 
-4. **Add person with same name but different field**
+4. **Add person with same name but with at least one different field**
 
     * Test case:
       Add the same name but with a different address or price.<br>

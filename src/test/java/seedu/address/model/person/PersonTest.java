@@ -40,9 +40,9 @@ public class PersonTest {
         editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.isSameName(editedAlice));
 
-        // name differs in case, all other attributes same -> returns false
+        // name differs in case, all other attributes same -> returns true
         Person editedBob = new PersonBuilder(BOB).withName(VALID_NAME_BOB.toLowerCase()).build();
-        assertFalse(BOB.isSameName(editedBob));
+        assertTrue(BOB.isSameName(editedBob));
 
         // name has trailing spaces, all other attributes same -> returns false
         String nameWithTrailingSpaces = VALID_NAME_BOB + " ";
@@ -68,9 +68,9 @@ public class PersonTest {
         editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.isSamePerson(editedAlice));
 
-        // name differs in case, all other attributes same -> returns false
+        // name differs in case, all other attributes same -> returns true
         Person editedBob = new PersonBuilder(BOB).withName(VALID_NAME_BOB.toLowerCase()).build();
-        assertFalse(BOB.isSamePerson(editedBob));
+        assertTrue(BOB.isSamePerson(editedBob));
 
         // name has trailing spaces, all other attributes same -> returns false
         String nameWithTrailingSpaces = VALID_NAME_BOB + " ";
@@ -131,6 +131,26 @@ public class PersonTest {
         // different intention -> returns false
         editedAlice = new PersonBuilder(ALICE).withIntention(VALID_INTENTION_RENT).build();
         assertFalse(ALICE.equals(editedAlice));
+
+        // same name different case -> returns true
+        editedAlice = new PersonBuilder(ALICE).withName(ALICE.getName().toString().toLowerCase())
+                .build();
+        assertTrue(ALICE.equals(editedAlice));
+
+        // same email different case -> returns true
+        editedAlice = new PersonBuilder(ALICE).withEmail(ALICE.getEmail().toString().toLowerCase())
+                .build();
+        assertTrue(ALICE.equals(editedAlice));
+
+        // same address different case -> returns true
+        editedAlice = new PersonBuilder(ALICE).withAddress(ALICE.getAddress().toString().toLowerCase())
+                .build();
+        assertTrue(ALICE.equals(editedAlice));
+
+        // same property type different case -> returns true
+        editedAlice = new PersonBuilder(ALICE).withPropertyType(ALICE.getPropertyType().toString().toLowerCase())
+                .build();
+        assertTrue(ALICE.equals(editedAlice));
 
         // same intention -> returns true
         Person aliceWithIntention = new PersonBuilder(ALICE).withIntention("sell").build();

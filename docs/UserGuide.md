@@ -54,9 +54,10 @@ The application has a Graphical User Interface (GUI) with the following componen
 
 ### Contact List
 ![contact list](images/contactList.png)<br>
-The Contact List displays all persons stored in PropertyPal. Each entry shows the person's intention, name, phone number, email, address, property type, and price.
-Each field has its own column. <br> Users can adjust column widths by dragging the edges of the column headers. <br> Users can also reorder columns by dragging and dropping the column headers to their desired positions. <br>
-Clicking a row highlights it, making it easier for users to focus on a particular contact.
+* The Contact List displays all persons stored in PropertyPal. Each entry shows the person's intention, name, phone number, email, address, property type, and price. Each field has its own column.
+* Users can adjust column widths by dragging the edges of the column headers. This helps with dealing with long values that may get cut off.
+* Users can reorder columns by dragging and dropping the column headers to their desired positions.
+* Clicking a row highlights it, making it easier for users to focus on a particular contact.
 
 --------------------------------------------------------------------------------------------------------------------
 

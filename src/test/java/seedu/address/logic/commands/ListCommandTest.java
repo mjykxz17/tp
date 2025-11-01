@@ -44,5 +44,4 @@ public class ListCommandTest {
         expectedModel.sortFilteredPersonListByName();
         assertCommandSuccess(listCommand, model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
-
 }

@@ -11,13 +11,13 @@ public class Name {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Names must start with a letter and should only contain "
-                    + "letters, numbers, accents, spaces, periods, apostrophes, or hyphens";
+                    + "letters, numbers, accents, spaces, periods, apostrophes, slashes, or hyphens";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "^[\\p{L}][\\p{L}\\p{M}\\p{N} .'-]*$";
+    public static final String VALIDATION_REGEX = "^[\\p{L}][\\p{L}\\p{M}\\p{N} .'/-]*$";
 
     public final String fullName;
 

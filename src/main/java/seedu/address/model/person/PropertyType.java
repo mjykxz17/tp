@@ -54,7 +54,7 @@ public class PropertyType {
         }
 
         PropertyType otherPropertyType = (PropertyType) other;
-        return value.equals(otherPropertyType.value);
+        return value.equalsIgnoreCase(otherPropertyType.value);
     }
 
     @Override

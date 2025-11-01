@@ -24,7 +24,7 @@ PropertyPal is a **desktop application** that helps **real estate agents** manag
 
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar PropertyPal.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note that the app contains some sample data by default.<br>
- * column widths are adjustable (to display truncated values)
+ * Column widths are adjustable (to display truncated values)
    Note that you may click and drag the columns around to reorder them.<br>
    ![Ui](images/Ui.png)
 
@@ -97,6 +97,7 @@ Format: `add i/INTENTION n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pt/PROPERTY_TYP
 Examples:
 * `add i/rent n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 pt/HDB 3 room flat pr/4700`
 * `add i/sell n/Betsy Crowe e/betsycrowe@example.com a/Caldecott Road #12-34 pt/Condominium pr/120000.50 p/1234567`
+* ![adding a person](images/addingPerson.gif)
 
 ### Listing all persons : `list`
 
@@ -134,8 +135,8 @@ Format: `find [i/INTENTION]…​ [n/NAME]…​ [p/PHONE_NUMBER]…​ [e/EMAIL
 * **Price field matches the exact value.**  e.g. `find pr/36` will not list a property with price 3600
 * Parameters can appear in any order.
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Persons matching **at least one given keyword** will be returned. Each keyword **must** be separated by a space.
+  e.g. `find n/Alice Casey` will return `Alice Tan`, `Casey Low` as results in the contact list.
 <br><br>
 * Finding by Price:
   * finding with an exact value (e.g. `pr/2000`) will return contacts who match that exact value.
@@ -166,6 +167,7 @@ Format: `delete INDEX` or `delete n/NAME [n/NAME]…`
     + When you provide a `NAME` to delete (e.g., `delete n/John Doe`), PropertyPal will now match and delete all persons whose full name exactly matches `John Doe` (case-insensitive matching is used internally). If the name matches multiple entries, the application will display a confirmation warning listing all matched entries and append a note such as:
         +  `Note: Multiple entries found for 'John Doe' — all matching entries will be deleted.`
         +  You can then type `yes` to confirm or `no` to abort.
+           ![deleting multiple names](images/deleteMultipleNames.gif)
 
 Examples:
 * `list` followed by `delete 2` deletes the 2nd person in PropertyPal.

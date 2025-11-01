@@ -74,6 +74,13 @@ All fields in PropertyPal are **case-insensitive** — searches and comparisons 
 | **Property Type (`pt/`)** | Up to 100 characters, cannot be blank or start with a space.                                                                                                                                                                                                                                                              | `pt/HDB 3 room flat`, `pt/Condominium`, `pt/Landed house`                  | `pt/ `, `pt/`                                                   |
 | **Price (`pr/`)**         | Must be a positive number ≤ 13 digits, optionally with commas and up to **2 decimal places**. Cannot be blank or contain symbols other than commas or one decimal point.                                                                                                                                                  | `pr/450000`, `pr/1,200,000`, `pr/4700.50`, `pr/700,000`                    | `pr/-5000`, `pr/$2000`, `pr/1,000.000`, `pr/`, `pr/100,00,0`    |
 
+<box type="info" seamless>
+
+**Note:** PropertyPal is designed under the assumption that all properties belong to a single country.
+This reflects common industry practices, as property agents are generally licensed to handle transactions only within their national jurisdiction and currency.
+Thus, all property prices entered in PropertyPal are assumed to be in the same currency of the country where the agent operates.
+
+</box>
 
 --------------------------------------------------------------------------------------------------------------------
 

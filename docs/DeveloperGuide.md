@@ -622,26 +622,28 @@ testers are expected to do more *exploratory* testing.
 1. **Add with all fields present**
 
     * Test case:
-      `add i/sell n/John Doe p/98765432 e/johnd@example.com a/John Street #12-34 pt/HDB 3 room flat pr/470000`
+      `add i/sell n/John Doe p/98765432 e/johnd@example.com a/John Street #12-34 pt/HDB 3 room flat pr/470000`<br>
       **Expected:** New person successfully added to the list. Status message shows confirmation and details of the new entry.
 
 2. **Add with missing mandatory field**
 
     * Test case:
-      `add n/Jane Tan p/91234567 e/jane@example.com a/Tampines Avenue pt/Condo`
+      `add n/Jane Tan p/91234567 e/jane@example.com a/Tampines Avenue pt/Condo`<br>
       **Expected:** Error message shown — invalid command format.
 
 3. **Add duplicate person**
 
     * Test case:
-      Add a person with exactly the same details as an existing contact.
+      Add a person with exactly the same details as an existing contact (e.g., same name, phone, email, address, price, property type, and intention).
+
+    * Note: Equality matching is case-insensitive — differing letter case does not avoid duplication.<br>
       **Expected:** Error message — This person already exists in PropertyPal.
 
 4. **Add person with same name but different field**
 
     * Test case:
-      Add the same name but with a different address or price.
-      **Expected:** Person is added successfully; warning message displayed about similar existing entry.
+      Add the same name but with a different address or price.<br>
+      **Expected:** Person is added successfully; warning message displayed about entry with similar/same existing name.
 
 ### Editing a Person
 
@@ -649,19 +651,19 @@ testers are expected to do more *exploratory* testing.
 
     * Prerequisite: There is a person in the contact list.
     * Test case:
-      `edit 1 p/99998888 e/johnupdated@example.com`
+      `edit 1 p/99998888 e/johnupdated@example.com`<br>
       **Expected:** The first person’s phone and email fields are updated. Status bar timestamp changes.
 
 2. **Edit with invalid index**
 
     * Test case:
-      `edit 0 n/NAME`
+      `edit 0 n/NAME`<br>
       **Expected:** Error message shown. No changes made.
 
 3. **Edit without specifying any field**
 
     * Test case:
-      `edit 1`
+      `edit 1`<br>
       **Expected:** Error message — at least one field must be provided.
 
 ### Finding Persons
@@ -669,31 +671,31 @@ testers are expected to do more *exploratory* testing.
 1. **Find by single field**
 
     * Test case:
-      `find n/John`
+      `find n/John`<br>
       **Expected:** Lists all contacts with “John” in their name (case-insensitive).
 
 2. **Find by multiple prefixes**
 
     * Test case:
-      `find n/John p/9123`
+      `find n/John p/9123`<br>
       **Expected:** Lists contacts whose name *or* phone number matches.
 
 3. **Find by price range**
 
     * Test case:
-      `find pr/400000-600000`
+      `find pr/400000-600000`<br>
       **Expected:** Lists all persons whose property price is within the range.
 
 4. **Find by intention**
 
     * Test case:
-      `find i/rent`
+      `find i/rent`<br>
       **Expected:** Lists all contacts whose intention is “rent”.
 
 5. **Invalid find syntax**
 
     * Test case:
-      `find`
+      `find`<br>
       **Expected:** Error message — at least one prefix must be provided.
 
 ### Deleting a person
@@ -714,9 +716,9 @@ testers are expected to do more *exploratory* testing.
 ### Clearing All Entries
 
 1. **Test case:**
-   `clear`
+   `clear`<br>
    **Expected:** All entries removed from the list. Empty table displayed.
 
 2. **Invalid input:**
-   `clear extra`
+   `clear extra`<br>
    **Expected:** Command still accepted (extra parameters ignored).

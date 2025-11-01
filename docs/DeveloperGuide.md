@@ -720,3 +720,4 @@ testers are expected to do more *exploratory* testing.
 2. **Invalid input:**
    `clear extra`
    **Expected:** Command still accepted (extra parameters ignored).
+3. 

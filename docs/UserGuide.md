@@ -130,7 +130,6 @@ Adds a person to PropertyPal.
 
 * A warning will be displayed if there already exists an entry with the same name and/or address in PropertyPal. However, it will still be accepted if at least 1 field is different from the existing entry.
 * An input that is fully identical to an already existing entry is considered a duplicate and will not be accepted by PropertyPal.
-* PropertyType and Price prefix values have a maximum character/digit limit of 100 and 13 respectively.
 
 Format: `add i/INTENTION n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pt/PROPERTY_TYPE pr/PRICE​`
 
@@ -165,13 +164,13 @@ Examples:
 ### Locating persons by prefix: `find`
 
 Finds persons whose name, phone, email, address, intention, property type, or price contain any of the given keywords.
-Apart from the price field, the search is case-insensitive and uses substring matching (e.g. `ali` matches `Alice`).
+Apart from the price field, the search uses substring matching (e.g. `ali` matches `Alice`).
 
 Format: `find [i/INTENTION]…​ [n/NAME]…​ [p/PHONE_NUMBER]…​ [e/EMAIL]…​ [a/ADDRESS]…​ [pt/PROPERTY_TYPE]…​ [pr/PRICE]…​`
 
 * At least one prefix must be provided.
 * You may include multiple prefixes in the same command — results are combined using OR semantics (a person matches if any field matches).
-* Keywords are case-insensitive and may contain multiple words separated by spaces.
+* Words separated by spaces are considered separate keywords.
 * Parameters can appear in any order.
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 * Persons matching **at least one given keyword** will be returned. Each keyword is separated by a space.
@@ -201,7 +200,7 @@ Format: `delete INDEX` or `delete n/NAME [n/NAME]…`
 * The index refers to the index number shown in the displayed person list. The index must be a positive integer: 1, 2, 3, …
 
 + Deletion by name:
-    + When providing a `NAME` to delete (e.g., `delete n/John Doe`), PropertyPal will match and delete **all** persons whose full name exactly matches `John Doe` (case-insensitive matching is used internally). If the name matches multiple entries, the application will display a confirmation warning listing all matched entries and append a note such as:
+    + When providing a `NAME` to delete (e.g., `delete n/John Doe`), PropertyPal will match and delete **all** persons whose full name exactly matches `John Doe` (case-insensitive). If the name matches multiple entries, the application will display a confirmation warning listing all matched entries and append a note such as:
         +  `Note: Multiple entries found for 'John Doe' — all matching entries will be deleted.`
         +  You can then type `yes` to confirm or `no` to abort.<br>
            ![deleting multiple names](images/deleteMultipleNames.png)

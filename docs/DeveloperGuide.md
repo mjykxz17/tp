@@ -345,6 +345,51 @@ This flow is illustrated in the sequence diagram below:
 
 _{more aspects and alternatives to be added}_
 
+### [Proposed] Track Offers Feature
+
+#### Overview
+
+In the real estate workflow, agents often receive multiple offers for a single property and must decide which to pursue or present to their clients. Currently, **PropertyPal** captures only the client’s essential details — such as name, contact, intention, property type, and listed price — but does not provide a way to record or monitor offers made by prospective buyers or tenants.
+
+This enhancement aims to address that gap by introducing a **“Track Offers”** feature. It allows agents to document the **highest or most recent offer** received for each client’s property, providing a clearer picture of ongoing negotiations and helping agents manage deals more effectively.
+
+#### Proposed Implementation
+
+A new optional attribute, `Offer`, will be introduced in the `Person` class to represent the latest or best offer received for the client’s property.
+Through this feature, agents can:
+
+* View the current best offer alongside other property details in the main list.
+* Add, update, or clear the offer using a new command syntax.
+* Keep clients’ offer information consistent and up to date as new bids are received.
+
+Example command:
+
+```
+offer 3 o/480000
+```
+
+This updates the third client’s record with a best offer of `$480,000`.
+
+#### Design Considerations
+
+**Aspect: Representation of offer data**
+
+* **Option 1 (selected):** Store only one value — the best or latest offer — per client.
+  *Pros:* Straightforward to implement, minimal storage required, integrates smoothly with existing UI.
+  *Cons:* No visibility of previous offers.
+
+* **Option 2:** Maintain a list of all offers received.
+  *Pros:* Useful for tracking offer history or market activity.
+  *Cons:* Increases complexity and may clutter the interface.
+
+#### Example Usage
+
+| Command            | Description                                                |
+| ------------------ | ---------------------------------------------------------- |
+| `offer 1 o/500000` | Records a best offer of $500,000 for client #1             |
+| `offer 2 o/`       | Removes the offer entry for client #2                      |
+| `list`             | Displays all clients with their corresponding offer values |
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Requirements**

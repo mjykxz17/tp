@@ -163,7 +163,7 @@ This section describes some noteworthy details on how certain features are imple
 
 #### Implementation
 
-The find command supports searching across multiple fields (e.g., name, phone, email, address, price, etc.) using `OR` semantics. 
+The find command supports searching across multiple fields (e.g., name, phone, email, address, price, etc.) using `OR` semantics.
 This behaviour is implemented in the `PersonContainsKeywordsPredicate` class, which defines how each `Person` is tested against the given search keywords.
 <br>
 <br>
@@ -720,4 +720,3 @@ testers are expected to do more *exploratory* testing.
 2. **Invalid input:**
    `clear extra`
    **Expected:** Command still accepted (extra parameters ignored).
-3. 

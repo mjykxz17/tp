@@ -1,7 +1,7 @@
 ---
-  layout: default.md
-  title: "Developer Guide"
-  pageNav: 3
+layout: default.md
+title: "Developer Guide"
+pageNav: 3
 ---
 
 # 🏠 PropertyPal Developer Guide
@@ -527,8 +527,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 4.  Should be able to start up quickly within a few seconds on a typical computer.
 5.  Should be able to run on laptops with 4GB RAM and above.
 6.  Error messages should be easy to understand by an average user.
-7.  Change in user preferences should be persisted across sessions.
-8.  All features work without internet access.
+7.  All features work without internet access.
 
 ### Glossary
 

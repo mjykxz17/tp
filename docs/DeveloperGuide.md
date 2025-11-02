@@ -205,10 +205,21 @@ return nameMatches || phoneMatches || emailMatches || addressMatches
 * [DevOps guide](DevOps.md)
 
 --------------------------------------------------------------------------------------------------------------------
+## **Appendix: Planned Enhancements**
 
-## **Appendix: Proposed future features**
+Team size: 4
 
-### \[Proposed\] Undo/redo feature
+1. **Enhance 'find' to find by area (by postal code):** Currently, the `find` command uses String matching to find the relevant addresses, but this does not account for proximity of locations. For example, in Singapore, Fernvale is located in Sengkang, but searching `find a/Sengkang` does not bring up results from Fernvale. We plan to allow users to search by postal code if they are present in the address field, which would help mitigate this problem by allowing users to check if 2 apartments are located in the same area.
+2. **Enhance 'find' to support partial numeric ranges:** Currently, the `find` command allows users to search by exact price, or a range of prices with a minimum and maximum value (inclusive). It does not support finding by partial ranges (e.g. `find pr/-5000` and `find pr/3000-`). We plan to support searching by partial values as long as a '-' is detected within the input to increase flexibility of the command.
+3. **Enhance 'find' to highlight fields that match in results:** If the user enters a complex query that searches by multiple different fields, it may be difficult to tell at a glance which parts of the results match the query. To solve this problem, we intend to highlight specific fields in the results that match the given query, allowing users to identify results with more matches at a glance.
+4. **Allow column arrangements to be saved in user preferences:** Users can currently drag and reorder columns in the contact list as they wish, but these orderings are reset whenever the application is reopened. We intend to persist column arrangements in `preferences.json` so that user preferences are restored whenever PropertyPal is reopened.
+5. **Allow column widths to be adjusted through typing:** Currently, if the user adds a contact with long inputs, certain values in the contact list may appear truncated. Users can currently manually adjust these column widths by dragging the column headers, but this may annoy them if they typically prefer typing, or if multiple columns need to be adjusted at once. We plan to enhance this resizing feature by extending this functionality to the CLI (e.g. adding a `resize` command) such that all columns can be automatically adjusted at once with typing.
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Planned Features**
+
+### \[Proposed\] 1. Undo/redo feature
 
 #### Proposed Implementation
 
@@ -301,51 +312,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
-### \[Proposed\] Find by Area Feature (Postal Code Prefix)
-
-#### Proposed Implementation
-
-The proposed feature extends the existing `find` command to allow users to search for persons by postal code prefix using the pc/ prefix.
-The implementation adds a new `PostalCode` field to the `Person` class.
-For example, the command `find pc/64` will list all persons whose postal code begins with “64”.
-
-Internally, the feature flows through the following components:
-
-1. `LogicManager` receives the command text and delegates parsing to `AddressBookParser`.
-
-2. `AddressBookParser` uses `FindCommandParser`, which tokenizes input arguments and constructs a `PersonContainsKeywordsPredicate` for the postal code prefix.
-
-3. `FindCommand` is created with the predicate and returned to `LogicManager`.
-
-4. `LogicManager` executes the command with the `Model`, which updates the filtered person list by testing each person with the predicate.
-
-5. A `CommandResult` is created and returned to `LogicManager`.
-
-
-This flow is illustrated in the sequence diagram below:
-
-<puml src="diagrams/FindByPostalCodeSequenceDiagram-Logic.puml" alt="FindByPostalCodeSequenceDiagram-Logic" />
-
-<box type="info" seamless>
-
-**Note:** The lifeline for `FindCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
-</box>
-
-#### Design considerations:
-
-**Aspect: How area filtering works:**
-
-* **Alternative 1 (current choice):** Filter by prefix matching (e.g. first 2 characters of the postal code).
-* Pros: Simple to implement and directly maps to postal district prefixes.
-* Cons: May be less precise for smaller subzones.
-
-* **Alternative 2:** Use an external postal code–to–region lookup table.
-* Pros: Enables filtering by named region.
-* Cons: Requires maintaining additional data and mappings.
-
-_{more aspects and alternatives to be added}_
-
-### [Proposed] Track Offers Feature
+### \[Proposed\] 2. Track Offers Feature
 
 #### Overview
 

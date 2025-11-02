@@ -2,6 +2,9 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableCell;
@@ -46,7 +49,28 @@ public class PersonListPanel extends UiPart<Region> {
 
         personTableView.setItems(personList);
 
-        // row index column (#)
+        colName.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getName().fullName));
+        colPhone.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getPhone().value));
+        colEmail.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getEmail().value));
+        colAddress.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getAddress().value));
+        colPropertyType.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getPropertyType().value));
+        colPrice.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getPrice().value));
+        colIntention.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getIntention().intentionName));
+        colIndex.setCellValueFactory(cellData -> {
+            Person person = cellData.getValue();
+            SimpleIntegerProperty indexProperty = new SimpleIntegerProperty();
+            indexProperty.bind(Bindings.createIntegerBinding(() -> personTableView.getItems().indexOf(person) + 1,
+                    personTableView.getItems()
+            ));
+            return indexProperty;
+        });
         colIndex.setCellFactory(new Callback<TableColumn<Person, Number>, TableCell<Person, Number>>() {
             @Override
             public TableCell<Person, Number> call(TableColumn<Person, Number> param) {
@@ -54,24 +78,17 @@ public class PersonListPanel extends UiPart<Region> {
                     @Override
                     protected void updateItem(Number item, boolean empty) {
                         super.updateItem(item, empty);
-                        if (empty || getIndex() < 0 || getIndex() >= personTableView.getItems().size()) {
-                            setText(null);
-                        } else {
-                            setText(String.valueOf(getIndex() + 1));
-                        }
+                        setText(empty || item == null ? null : String.valueOf(item.intValue()));
                     }
                 };
             }
         });
 
-        // text columns
         colName.setCellFactory(tc -> new TableCell<Person, String>() {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
-                setText(empty || getIndex() < 0 || getIndex() >= getTableView().getItems().size()
-                        ? null
-                        : getTableView().getItems().get(getIndex()).getName().fullName);
+                setText(empty ? null : item);
             }
         });
 
@@ -79,9 +96,7 @@ public class PersonListPanel extends UiPart<Region> {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
-                setText(empty || getIndex() < 0 || getIndex() >= getTableView().getItems().size()
-                        ? null
-                        : getTableView().getItems().get(getIndex()).getPhone().value);
+                setText(empty ? null : item);
             }
         });
 
@@ -89,9 +104,7 @@ public class PersonListPanel extends UiPart<Region> {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
-                setText(empty || getIndex() < 0 || getIndex() >= getTableView().getItems().size()
-                        ? null
-                        : getTableView().getItems().get(getIndex()).getEmail().value);
+                setText(empty ? null : item);
             }
         });
 
@@ -99,9 +112,7 @@ public class PersonListPanel extends UiPart<Region> {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
-                setText(empty || getIndex() < 0 || getIndex() >= getTableView().getItems().size()
-                        ? null
-                        : getTableView().getItems().get(getIndex()).getAddress().value);
+                setText(empty ? null : item);
             }
         });
 
@@ -109,9 +120,7 @@ public class PersonListPanel extends UiPart<Region> {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
-                setText(empty || getIndex() < 0 || getIndex() >= getTableView().getItems().size()
-                        ? null
-                        : getTableView().getItems().get(getIndex()).getPropertyType().value);
+                setText(empty ? null : item);
             }
         });
 
@@ -119,9 +128,7 @@ public class PersonListPanel extends UiPart<Region> {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
-                setText(empty || getIndex() < 0 || getIndex() >= getTableView().getItems().size()
-                        ? null
-                        : getTableView().getItems().get(getIndex()).getPrice().value);
+                setText(empty ? null : item);
             }
         });
 
@@ -132,14 +139,13 @@ public class PersonListPanel extends UiPart<Region> {
                 // Always reset styles when updating
                 getStyleClass().removeAll("intention-chip", "intention-sell", "intention-rent");
 
-                if (empty || getIndex() < 0 || getIndex() >= getTableView().getItems().size()) {
+                if (empty || item == null) {
                     setText(null);
                     return;
                 }
 
-                String intent = getTableView().getItems().get(getIndex()).getIntention().intentionName;
-                String className = "intention-" + intent;
-                String labelText = intent.substring(0, 1).toUpperCase() + intent.substring(1);
+                String className = "intention-" + item.toLowerCase();
+                String labelText = item.substring(0, 1).toUpperCase() + item.substring(1);
                 setText(labelText);
                 getStyleClass().add("intention-chip");
                 getStyleClass().add(className);

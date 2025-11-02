@@ -12,6 +12,7 @@ import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.model.intention.Intention;
 import seedu.address.model.person.PersonContainsKeywordsPredicate;
 
 /**
@@ -131,9 +132,16 @@ public class FindCommandParserTest {
                         Collections.emptyList(),
                         Collections.emptyList(),
                         Collections.emptyList(),
-                        Arrays.asList("buy", "sell"));
+                        Arrays.asList("sell", "rent"));
         FindCommand expectedFindCommand = new FindCommand(predicate);
-        assertParseSuccess(parser, " i/Buy i/Sell", expectedFindCommand);
+        assertParseSuccess(parser, " i/Sell i/Rent", expectedFindCommand);
+    }
+
+    @Test
+    public void parse_invalidIntentionArgs_throwsParseException() {
+        assertParseFailure(parser, " i/any", Intention.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, " i/buy", Intention.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, " i/", Intention.MESSAGE_CONSTRAINTS);
     }
 
     @Test
@@ -146,9 +154,9 @@ public class FindCommandParserTest {
                         Arrays.asList("street"),
                         Arrays.asList("500000"),
                         Arrays.asList("hdb"),
-                        Arrays.asList("buy"));
+                        Arrays.asList("sell"));
         FindCommand expectedFindCommand = new FindCommand(predicate);
-        assertParseSuccess(parser, " n/Alice p/9123 e/gmail a/street pr/500000 pt/HDB i/Buy",
+        assertParseSuccess(parser, " n/Alice p/9123 e/gmail a/street pr/500000 pt/HDB i/Sell",
                 expectedFindCommand);
     }
 

@@ -93,11 +93,14 @@ Here's a (partial) class diagram of the `Logic` component:
 
 The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete 1")` API call as an example.
 
-<puml src="diagrams/DeleteSequenceDiagram.puml" alt="Interactions Inside the Logic Component for the `delete 1` Command" />
+<puml src="diagrams/DeleteSequenceDiagram.puml" alt="High-level interactions for the delete command" />
 
 <box type="info" seamless>
 
-**Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
+This diagram intentionally shows only the main flow. Details for different inputs are split into focused diagrams:
+
+- <puml src="diagrams/DeleteByIndexSequenceDiagram.puml" alt="Delete by index (focused)" />
+- <puml src="diagrams/DeleteByNamesSequenceDiagram.puml" alt="Delete by name(s) (focused)" />
 </box>
 
 How the `Logic` component works:
@@ -644,12 +647,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 Given below are instructions to test the app manually.
 
-<box type="info" seamless>
-
-**Note:** These instructions only provide a starting point for testers to work on;
-testers are expected to do more *exploratory* testing.
-
-</box>
+> Note: These instructions only provide a starting point for testers to work on; testers are expected to do more exploratory testing.
 
 ### Launch and shutdown
 

@@ -92,13 +92,9 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         }
 
         String preamble = argMultimap.getPreamble();
-        try {
-            Index index = ParserUtil.parseIndex(preamble);
-            return new DeleteCommand(index);
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
-        }
+        // Minimal change: let specific index parsing errors propagate instead of wrapping
+        Index index = ParserUtil.parseIndex(preamble);
+        return new DeleteCommand(index);
     }
 
 }

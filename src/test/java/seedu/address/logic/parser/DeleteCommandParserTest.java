@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 
 import java.util.List;
 
@@ -23,6 +24,12 @@ public class DeleteCommandParserTest {
     public void parseValidIndexReturnsDeleteCommand() throws Exception {
         DeleteCommand cmd = (DeleteCommand) addressParser.parseCommand("delete 1");
         assertEquals(new DeleteCommand(Index.fromOneBased(1)), cmd);
+    }
+
+    @Test
+    public void parseIndexZero_showsInvalidIndexMessage() {
+        seedu.address.testutil.Assert.assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, () ->
+            addressParser.parseCommand("delete 0"));
     }
 
     @Test

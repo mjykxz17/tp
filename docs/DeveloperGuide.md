@@ -470,16 +470,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 1a. No clients stored
+* 1a. Invalid input (e.g. typo)
 
-    * 1a1. PropertyPal displays an empty table and a success message.
-
-      Use case ends.
-
-
-* 1b. Invalid input (e.g. typo)
-
-    * 1b1. PropertyPal displays an error message indicating that the command is not recognized.
+    * 1a1. PropertyPal displays an error message indicating that the command is not recognized.
 
       Use case ends.
 

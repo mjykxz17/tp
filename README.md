@@ -79,6 +79,10 @@ For detailed setup instructions, feature descriptions, and design explanations, 
 
 ---
 
+## Acknowledgements
+
+PropertyPal's icon is obtained from [OpenMoji](https://openmoji.org/).
+
 <!--
 ## Contributing
 

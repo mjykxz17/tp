@@ -100,13 +100,13 @@ Examples:
 
 ### Listing all persons : `list`
 
-Shows a list of all persons in PropertyPal in the following priority order:
-1. Name (alphabetical order, case-insensitive)
-2. Phone number (if names are identical)
-3. Address (if names and phone numbers are identical)
-4. Email (if names, phone numbers, and addresses are identical)
-5. Price (numerical order, if all previous fields are identical)
-6. Property Type (alphabetical order, case-insensitive, if all previous fields are identical)
+Displays all persons in PropertyPal, sorted by:
+1. Name (A-Z, case-insensitive)
+2. Phone number (text sorting, so "100" comes before "99")
+3. Address (A-Z, case-insensitive)
+4. Email (A-Z, case-insensitive)
+5. Price (lowest to highest)
+6. Property Type (A-Z, case-insensitive)
 
 Format: `list`
 

@@ -16,6 +16,7 @@ import java.util.Set;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.intention.Intention;
 import seedu.address.model.person.PersonContainsKeywordsPredicate;
 
 /**
@@ -44,6 +45,8 @@ public class FindCommandParser implements Parser<FindCommand> {
         List<String> rawPropertyTypes = argMultimap.getAllValues(PREFIX_PROPERTY_TYPE);
         List<String> rawIntentions = argMultimap.getAllValues(PREFIX_INTENTION);
 
+        boolean hasIntentionPrefix = !rawIntentions.isEmpty();
+
         List<String> nameKeywords = splitNormalizeDedup(rawNames);
         List<String> phoneKeywords = splitNormalizeDedup(rawPhones);
         List<String> emailKeywords = splitNormalizeDedup(rawEmails);
@@ -56,6 +59,18 @@ public class FindCommandParser implements Parser<FindCommand> {
             String errorMessage = validatePriceKeyword(keyword);
             if (errorMessage != null) {
                 throw new ParseException(errorMessage);
+            }
+        }
+
+        // If i/ was provided but yielded no valid tokens, it's an invalid intention input
+        if (hasIntentionPrefix && intentionKeywords.isEmpty()) {
+            throw new ParseException(Intention.MESSAGE_CONSTRAINTS);
+        }
+
+        // Validate intention keywords strictly: only 'sell' or 'rent' allowed
+        for (String k : intentionKeywords) {
+            if (!Intention.isValidIntentionName(k)) {
+                throw new ParseException(Intention.MESSAGE_CONSTRAINTS);
             }
         }
 

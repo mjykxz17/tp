@@ -101,12 +101,12 @@ Examples:
 ### Listing all persons : `list`
 
 Displays all persons in PropertyPal, sorted by:
-1. Name (A-Z, case-insensitive)
+1. Name (A-Z)
 2. Phone number (text sorting, so "100" comes before "99")
-3. Address (A-Z, case-insensitive)
-4. Email (A-Z, case-insensitive)
+3. Address (A-Z)
+4. Email (A-Z)
 5. Price (lowest to highest)
-6. Property Type (A-Z, case-insensitive)
+6. Property Type (A-Z)
 
 Format: `list`
 

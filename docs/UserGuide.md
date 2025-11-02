@@ -140,9 +140,13 @@ Examples:
 
 ### Listing all persons : `list`
 
-Shows a list of all persons in PropertyPal in alphabetical order.
-
-For persons with duplicate fields, they will be sorted alphabetically or lexicographically based on phone number, address and email.
+Displays all persons in PropertyPal, sorted by:
+1. Name (A-Z)
+2. Phone number (text sorting, so "100" comes before "99")
+3. Address (A-Z)
+4. Email (A-Z)
+5. Price (lowest to highest)
+6. Property Type (A-Z)
 
 Format: `list`
 

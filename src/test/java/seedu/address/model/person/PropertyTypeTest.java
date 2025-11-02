@@ -43,6 +43,9 @@ public class PropertyTypeTest {
         // same values -> returns true
         assertTrue(propertyType.equals(new PropertyType("Valid property type")));
 
+        // same values but lowercase -> returns true
+        assertTrue(propertyType.equals(new PropertyType("valid property type")));
+
         // same object -> returns true
         assertTrue(propertyType.equals(propertyType));
 

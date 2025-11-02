@@ -1,7 +1,7 @@
 ---
-  layout: default.md
-  title: "Developer Guide"
-  pageNav: 3
+layout: default.md
+title: "Developer Guide"
+pageNav: 3
 ---
 
 # 🏠 PropertyPal Developer Guide
@@ -163,7 +163,7 @@ This section describes some noteworthy details on how certain features are imple
 
 #### Implementation
 
-The find command supports searching across multiple fields (e.g., name, phone, email, address, price, etc.) using `OR` semantics. 
+The find command supports searching across multiple fields (e.g., name, phone, email, address, price, etc.) using `OR` semantics.
 This behaviour is implemented in the `PersonContainsKeywordsPredicate` class, which defines how each `Person` is tested against the given search keywords.
 <br>
 <br>
@@ -342,6 +342,53 @@ This flow is illustrated in the sequence diagram below:
 * **Alternative 2:** Use an external postal code–to–region lookup table.
 * Pros: Enables filtering by named region.
 * Cons: Requires maintaining additional data and mappings.
+
+_{more aspects and alternatives to be added}_
+
+### [Proposed] Track Offers Feature
+
+#### Overview
+
+In the real estate workflow, agents often receive multiple offers for a single property and must decide which to pursue or present to their clients. Currently, **PropertyPal** captures only the client’s essential details — such as name, contact, intention, property type, and listed price — but does not provide a way to record or monitor offers made by prospective buyers or tenants.
+
+This enhancement aims to address that gap by introducing a **“Track Offers”** feature. It allows agents to document the **highest or most recent offer** received for each client’s property, providing a clearer picture of ongoing negotiations and helping agents manage deals more effectively.
+
+#### Proposed Implementation
+
+A new optional attribute, `Offer`, will be introduced in the `Person` class to represent the latest or best offer received for the client’s property.
+Through this feature, agents can:
+
+* View the current best offer alongside other property details in the main list.
+* Add, update, or clear the offer using a new command syntax.
+* Keep clients’ offer information consistent and up to date as new bids are received.
+
+Example command:
+
+```
+offer 3 o/480000
+```
+
+This updates the third client’s record with a best offer of `$480,000`.
+
+#### Design Considerations
+
+**Aspect: Representation of offer data**
+
+* **Option 1 (selected):** Store only one value — the best or latest offer — per client.
+  *Pros:* Straightforward to implement, minimal storage required, integrates smoothly with existing UI.
+  *Cons:* No visibility of previous offers.
+
+* **Option 2:** Maintain a list of all offers received.
+  *Pros:* Useful for tracking offer history or market activity.
+  *Cons:* Increases complexity and may clutter the interface.
+
+#### Example Usage
+
+| Command            | Description                                                |
+| ------------------ | ---------------------------------------------------------- |
+| `offer 1 o/500000` | Records a best offer of $500,000 for client #1             |
+| `offer 2 o/`       | Removes the offer entry for client #2                      |
+| `list`             | Displays all clients with their corresponding offer values |
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -570,8 +617,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 4.  Should be able to start up quickly within a few seconds on a typical computer.
 5.  Should be able to run on laptops with 4GB RAM and above.
 6.  Error messages should be easy to understand by an average user.
-7.  Change in user preferences should be persisted across sessions.
-8.  All features work without internet access.
+7.  All features work without internet access.
 
 ### Glossary
 
@@ -607,19 +653,100 @@ testers are expected to do more *exploratory* testing.
 
 ### Launch and shutdown
 
-1. Initial launch
+1. **Initial launch**
 
    1. Download the JAR file and copy into an empty folder
 
    1. Open a terminal in the location of the JAR file and run `java -jar "PropertyPal.jar"`<br>
    Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
-1. Saving window preferences
+1. **Saving window preferences**
 
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
    2. Re-launch the app by re-doing step `1.ii`.<br>
        Expected: The most recent window size and location is retained.
+
+### Adding a Person
+
+1. Add with all fields present
+
+    * **Test case:**
+      `add i/sell n/John Doe p/98765432 e/johnd@example.com a/John Street #12-34 pt/HDB 3 room flat pr/470000`<br>
+      **Expected:** New person successfully added to the list. Status message shows confirmation and details of the new entry.
+
+2. Add with missing mandatory field
+
+    * **Test case:**
+      `add n/Jane Tan p/91234567 e/jane@example.com a/Tampines Avenue pt/Condo`<br>
+      **Expected:** Error message shown — invalid command format.
+
+3. Add duplicate person
+
+    * **Test case:**
+      Add a person with exactly the same details as an existing contact (e.g., same name, phone, email, address, price, property type, and intention).
+
+    * Note: Equality matching is case-insensitive — differing letter case does not avoid duplication.<br>
+      **Expected:** Error message — This person already exists in PropertyPal.
+
+4. Add person with same name but with at least one different field
+
+    * **Test case:**
+      Add the same name but with a different address or price.<br>
+      **Expected:** Person is added successfully; warning message displayed about entry with similar/same existing name.
+
+### Editing a Person
+
+1. Edit phone and email
+
+    * Prerequisite: There is a person in the contact list.
+    * **Test case:**
+      `edit 1 p/99998888 e/johnupdated@example.com`<br>
+      **Expected:** The first person’s phone and email fields are updated. Status bar timestamp changes.
+
+2. Edit with invalid index
+
+    * **Test case:**
+      `edit 0 n/NAME`<br>
+      **Expected:** Error message shown. No changes made.
+
+3. Edit without specifying any field
+
+    * **Test case:**
+      `edit 1`<br>
+      **Expected:** Error message — at least one field must be provided.
+
+### Finding Persons
+
+1. Find by single field
+
+    * **Test case:**
+      `find n/John`<br>
+      **Expected:** Lists all contacts with “John” in their name (case-insensitive).
+
+2. Find by multiple prefixes
+
+    * **Test case:**
+      `find n/John p/9123`<br>
+      **Expected:** Lists contacts whose name *or* phone number matches.
+
+3. Find by price range
+
+    * **Test case:**
+      `find pr/400000-600000`<br>
+      **Expected:** Lists all persons whose property price is within the range.
+
+4. Find by intention
+
+    * **Test case:**
+      `find i/rent`<br>
+      **Expected:** Lists all contacts whose intention is “rent”.
+
+5. Invalid find syntax
+
+    * **Test case:**
+      `find`<br>
+      **Expected:** Error message — at least one prefix must be provided.
 
 ### Deleting a person
 
@@ -627,11 +754,21 @@ testers are expected to do more *exploratory* testing.
 
    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   1. **Test case: `delete 1`**<br>
+      **Expected:** First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   1. **Test case: `delete 0`**<br>
+      **Expected:** No person is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+   1. **Other incorrect delete commands to try: `delete`, `delete x`, `...`** (where x is larger than the list size)<br>
+      **Expected:** Similar to previous.
+
+### Clearing All Entries
+
+1. **Test case:**
+   `clear`<br>
+   **Expected:** All entries removed from the list. Empty table displayed.
+
+2. **Invalid input:**
+   `clear extra`<br>
+   **Expected:** Command still accepted (extra parameters ignored).

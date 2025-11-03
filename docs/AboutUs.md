@@ -48,4 +48,4 @@ You can reach us at the email `casey.low[at]u.nus.edu`
 [[github](http://github.com/plingplingshiny)]
 
 * Role: Developer
-* Responsibilities: `find` command, Property type and Price
+* Responsibilities: `list` command, Property type and Price
